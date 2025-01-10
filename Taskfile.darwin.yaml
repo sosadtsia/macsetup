@@ -1,0 +1,51 @@
+---
+version: '3'
+
+output: interleaved
+
+silent: True
+
+# env:
+#   DOCKER_HOST: unix://{{.HOME}}/.lima/docker/sock/docker.sock
+
+tasks:
+  prereq:
+    # dir: /private/etc/sudoers.d
+    cmds:
+      - cmd: echo "No prerequisites for MacOS"
+#       - cmd: sed -i '' -e 's/  vdeSwitch/# vdeSwitch/g' ~/.lima/_config/networks.yaml
+#       - cmd: sed -i '' -e 's/  vdeVMNet/# vdeVMNet/g' ~/.lima/_config/networks.yaml
+#       - cmd: >
+#           sed -i '' -e 's|  socketVMNet: .*|  socketVMNet: "{{.SOCKET_VMNET_SYMLINK}}/bin/socket_vmnet"|g' ~/.lima/_config/networks.yaml
+#       - cmd: limactl sudoers | sudo tee /etc/sudoers.d/lima > /dev/null 2>&1
+#       - task: lima:start
+#     vars:
+#       SOCKET_VMNET_SYMLINK:
+#         sh: readlink -f /opt/homebrew/opt/socket_vmnet
+
+#   destroy:force:
+#     cmds:
+#       - task: lima:destroy
+
+#   lima:create:
+#     desc: limactl create
+#     cmds:
+#       - cmd: limactl create --name docker files/{{OS}}-docker-rootful.yaml --tty=false
+#         ignore_error: True
+
+#   lima:start:
+#     desc: limactl start
+#     cmds:
+#       - task: lima:create
+#       - cmd: limactl start docker
+#         ignore_error: True
+
+#   lima:stop:
+#     desc: limactl stop
+#     cmds:
+#       - cmd: limactl stop docker
+
+#   lima:destroy:
+#     desc: limactl delete
+#     cmds:
+#       - cmd: limactl delete -f docker

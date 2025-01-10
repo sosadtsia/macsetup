@@ -1,0 +1,56 @@
+---
+version: '3'
+
+output: interleaved
+
+silent: True
+
+includes:
+  hostSpecific:
+    aliases: [include]
+    taskfile: ./Taskfile.{{OS}}.yaml
+    internal: True
+
+vars:
+  AWS_PROFILE: default
+  AWS_REGION: us-east-1
+
+tasks:
+  default:
+    aliases: [usage]
+    cmds:
+      - cmd: printf "OS - {{OS}}\n"
+      - cmd: task --list-all
+
+  prereq:
+    internal: True
+    cmds:
+      - cmd: brew bundle --quiet
+      - task: include:prereq
+    env:
+      HOMEBREW_NO_ENV_HINTS: false
+    status:
+      - test -f Brewfile.lock.json
+
+  init:
+    desc: Install tools with ASDF
+    internal: True
+    cmds:
+      - cmd: asdf install
+
+  test:
+    desc: test:deployment
+    cmds:
+      - task: test:deployment
+
+  test:deployment:
+    desc: test:deployment
+    cmds:
+      - cmd: echo "No deployment tests"
+    # env:
+    #   KUBECONFIG: '{{.ROOT_DIR}}/kubeconfig'
+
+  clean:
+    cmds:
+      # - cmd: rm -f kubeconfig
+      - cmd: rm -f Brewfile.lock.json
