@@ -19,38 +19,77 @@ tasks:
   default:
     aliases: [usage]
     cmds:
-      - cmd: printf "OS - {{OS}}\n"
-      - cmd: task --list-all
+      - printf "OS - {{OS}}\n"
+      - task --list-all
 
-  prereq:
-    internal: True
+  brew-install:
+    desc: "Install brew packages"
     cmds:
-      - cmd: brew bundle --quiet
-      - task: include:prereq
+      - echo "Installing brew packages..."
+      - brew bundle
     env:
       HOMEBREW_NO_ENV_HINTS: false
     status:
       - test -f Brewfile.lock.json
 
-  init:
-    desc: Install tools with ASDF
-    internal: True
+  asdf-add-plugins:
+    desc: "Add asdf plugins"
     cmds:
-      - cmd: asdf install
+      - asdf plugin add aws-nuke
+      - asdf plugin add aws-ssm-tools https://github.com/amrox/asdf-pyapp.git
+      - asdf plugin add awscli
+      - asdf plugin add eksctl
+      - asdf plugin add jq
+      - asdf plugin add k9s
+      - asdf plugin add kind
+      - asdf plugin add kubectl
+      - asdf plugin add kube-linter
+      - asdf plugin add kubebuilder
+      - asdf plugin add kustomize
+      - asdf plugin add kuttl
+      - asdf plugin add operator-sdk
+      - asdf plugin add opentofu
+      - asdf plugin add python
+      - asdf plugin add terraform
+      - asdf plugin add terraform-docs
+      - asdf plugin add terraform-ls
+      - asdf plugin add tflint
+      - asdf plugin add tfsec
+      - asdf plugin add yarn
+      - asdf plugin add yq
+      - asdf plugin add helm
+    preconditions:
+      - sh: which asdf
+
+  asdf-install:
+    desc: "Install tools with asdf"
+    cmds:
+      - echo "Installing tools with asdf..."
+      - asdf install
 
   test:
     desc: test:deployment
     cmds:
       - task: test:deployment
 
+  deployment:
+    desc: "Install brew packages and tools with asdf"
+    cmds:
+      - task: brew-install
+      - task: asdf-add-plugins
+      - task: asdf-install
+      - task: test
+    preconditions:
+      - sh: which asdf
+
   test:deployment:
     desc: test:deployment
     cmds:
-      - cmd: echo "No deployment tests"
+      - echo "No deployment tests"
     # env:
     #   KUBECONFIG: '{{.ROOT_DIR}}/kubeconfig'
 
   clean:
     cmds:
       # - cmd: rm -f kubeconfig
-      - cmd: rm -f Brewfile.lock.json
+      - rm -f Brewfile.lock.json
