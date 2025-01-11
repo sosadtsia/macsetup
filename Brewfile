@@ -16,6 +16,7 @@ brew "htop"
 brew "go-task"
 brew "tree"
 brew "tmux" # Terminal multiplexer
+cask "visual-studio-code"
 brew "wget"
 brew "watch"
 # brew "session-manager-plugin"

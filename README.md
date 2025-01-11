@@ -17,7 +17,12 @@ To set up your development environment, follow these steps:
     cd macsetup
     ```
 
-2. Install Homebrew dependencies:
+2. Install Homebrew dependencies, tools with asdf and vscode:
     ```bash
     task deployment
+    ```
+
+3. Uninstall Homebrew dependencies, tools with asdf and vscode:
+    ```bash
+    task destroy
     ```

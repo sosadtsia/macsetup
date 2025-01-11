@@ -32,6 +32,16 @@ tasks:
     status:
       - test -f Brewfile.lock.json
 
+  brew-uninstall:
+    desc: "Uninstall brew packages"
+    cmds:
+      - echo "Uninstalling brew packages..."
+      - brew bundle cleanup --force
+    env:
+      HOMEBREW_NO_ENV_HINTS: false
+    status:
+      - test -f Brewfile.lock.json
+
   asdf-add-plugins:
     desc: "Add asdf plugins"
     cmds:
@@ -61,11 +71,96 @@ tasks:
     preconditions:
       - sh: which asdf
 
+  asdf-remove-plugins:
+    desc: "Remove asdf plugins"
+    cmds:
+      - asdf plugin remove aws-nuke
+      - asdf plugin remove aws-ssm-tools
+      - asdf plugin remove awscli
+      - asdf plugin remove eksctl
+      - asdf plugin remove jq
+      - asdf plugin remove k9s
+      - asdf plugin remove kind
+      - asdf plugin remove kubectl
+      - asdf plugin remove kube-linter
+      - asdf plugin remove kubebuilder
+      - asdf plugin remove kustomize
+      - asdf plugin remove kuttl
+      - asdf plugin remove operator-sdk
+      - asdf plugin remove opentofu
+      - asdf plugin remove python
+      - asdf plugin remove terraform
+      - asdf plugin remove terraform-docs
+      - asdf plugin remove terraform-ls
+      - asdf plugin remove tflint
+      - asdf plugin remove tfsec
+      - asdf plugin remove yarn
+      - asdf plugin remove yq
+      - asdf plugin remove helm
+    preconditions:
+      - sh: which asdf
+
   asdf-install:
     desc: "Install tools with asdf"
     cmds:
       - echo "Installing tools with asdf..."
       - asdf install
+
+  install-vscode-extensions:
+    desc: "Install specified VS Code extensions"
+    cmds:
+      - |
+        extensions=(
+          "artymaury.template-finder"
+          "davidanson.vscode-markdownlint"
+          "eamodio.gitlens"
+          "formulahendry.auto-rename-tag"
+          "github.copilot"
+          "github.copilot-chat"
+          "github.github-vscode-theme"
+          "github.vscode-github-actions"
+          "golang.go"
+          "hashicorp.terraform"
+          "iliazeus.vscode-ansi"
+          "keesschollaart.vscode-home-assistant"
+          "me-dutour-mathieu.vscode-github-actions"
+          "mechatroner.rainbow-csv"
+          "mhutchie.git-graph"
+          "moshfeu.compare-folders"
+          "ms-azuretools.vscode-docker"
+          "ms-kubernetes-tools.vscode-kubernetes-tools"
+          "ms-python.debugpy"
+          "ms-python.isort"
+          "ms-python.python"
+          "ms-vscode-remote.remote-containers"
+          "ms-vscode.makefile-tools"
+          "oderwat.indent-rainbow"
+          "redhat.vscode-yaml"
+          "ryu1kn.partial-diff"
+          "samuelcolvin.jinjahtml"
+          "task.vscode-task"
+          "visualstudioexptteam.intellicode-api-usage-examples"
+          "visualstudioexptteam.vscodeintellicode"
+          "vscode-icons-team.vscode-icons"
+          "wayou.vscode-todo-highlight"
+        )
+        for extension in "${extensions[@]}"; do
+          if ! code --list-extensions | grep -q "$extension"; then
+            echo "Installing $extension..."
+            code --install-extension "$extension"
+          else
+            echo "$extension is already installed."
+          fi
+        done
+    preconditions:
+      - sh: which code
+
+  uninstall-vscode:
+    desc: "Run uninstall-vscode.sh script"
+    cmds:
+      - ./uninstall-vscode.sh
+    preconditions:
+      - sh: which code
 
   test:
     desc: test:deployment
@@ -78,9 +173,21 @@ tasks:
       - task: brew-install
       - task: asdf-add-plugins
       - task: asdf-install
+      - task: install-vscode-extensions
       - task: test
     preconditions:
       - sh: which asdf
+
+  destroy:
+    desc: "Uninstall all tools and extensions"
+    cmds:
+      - task: uninstall-vscode
+      - task: asdf-remove-plugins
+      - task: brew-uninstall
+    preconditions:
+      - sh: which asdf
+      - sh: which brew
+      - sh: which code
 
   test:deployment:
     desc: test:deployment
