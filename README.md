@@ -1,36 +1,23 @@
 # macsetup
-Helps to setup the macbook with packages and tools
+Helps to setup the macbook with packages and tools.
 
-## Requirements
+## Prerequisites
 
 ```
 brew bundle
 ```
 
-## Deploy
+## Deployment
 
-```
-task deploy
-```
+To set up your development environment, follow these steps:
 
-Output:
-```
-TODO
-```
+1. Clone the repository:
+    ```bash
+    git clone git@github.com:sosadtsia/macsetup.git
+    cd macsetup
+    ```
 
-## Test
-
-```
-task test
-```
-
-Output:
-```
-TODO
-```
-
-## Destroy
-
-```
-task destroy
-```
+2. Install Homebrew dependencies:
+    ```bash
+    task deployment
+    ```
