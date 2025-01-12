@@ -26,6 +26,7 @@ tasks:
     desc: "Install brew packages"
     cmds:
       - echo "Installing brew packages..."
+      - if ! xcode-select -p > /dev/null; then xcode-select --install; fi
       - brew bundle
     env:
       HOMEBREW_NO_ENV_HINTS: false
@@ -106,6 +107,18 @@ tasks:
       - echo "Installing tools with asdf..."
       - asdf install
 
+  pip-install:
+    desc: "Install Python packages"
+    cmds:
+      - echo "Installing Python packages..."
+      - pip install -r requirements.txt
+
+  pip-uninstall:
+    desc: "Uninstall Python packages"
+    cmds:
+      - echo "Uninstalling Python packages..."
+      - pip freeze | xargs pip uninstall -y
+
   install-vscode-extensions:
     desc: "Install specified VS Code extensions"
     cmds:
@@ -173,6 +186,7 @@ tasks:
       - task: brew-install
       - task: asdf-add-plugins
       - task: asdf-install
+      - task: pip-install
       - task: install-vscode-extensions
       - task: test
     preconditions:
@@ -181,6 +195,7 @@ tasks:
   destroy:
     desc: "Uninstall all tools and extensions"
     cmds:
+      - task: pip-uninstall
       - task: uninstall-vscode
       - task: asdf-remove-plugins
       - task: brew-uninstall
