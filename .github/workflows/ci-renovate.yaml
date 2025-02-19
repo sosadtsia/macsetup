@@ -26,6 +26,10 @@ jobs:
   call-ci-renovate:
     name: Renovate
     uses: sosadtsia/workflow-templates/.github/workflows/ci-renovate.yaml@main
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
     secrets:
       RENOVATE_APP_ID: ${{ secrets.RENOVATE_APP_ID }}
       RENOVATE_PRIVATE_KEY: ${{ secrets.RENOVATE_PRIVATE_KEY }}
