@@ -14,6 +14,6 @@ operator-sdk 1.22.0
 python 3.11.9
 terraform 1.9.6
 tflint 0.41.0
-yarn 1.22.19
-yq 4.25.2
-helm 3.16.1
+yarn 1.22.22
+yq 4.45.1
+helm 3.17.0
