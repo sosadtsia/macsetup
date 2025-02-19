@@ -1,5 +1,3 @@
 #!/usr/bin/env bash
 set -e
 task lint
-# task unittest
-task package
