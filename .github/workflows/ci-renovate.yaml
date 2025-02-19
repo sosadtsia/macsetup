@@ -18,29 +18,13 @@ on:
         default: 'false'
         type: string
 
-  # Run twice in the early morning for initial and follow up steps (create pull request and merge)
+  # Runs at least 30 mins at 4am every day
   schedule:
-    - cron: '30 4,6 * * *'
+    - cron: '30 4 * * *'
 
 jobs:
-  check-access:
-    name: 'Check access'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Create branch if it does not exist
-        run: |
-          git fetch origin
-          if ! git show-ref --verify --quiet refs/heads/renovate/awscli-2.x; then
-            git checkout -b renovate/awscli-2.x
-            git push origin renovate/awscli-2.x
-          fi
-
   call-ci-renovate:
     name: Renovate
-    needs: check-access
     uses: sosadtsia/workflow-templates/.github/workflows/ci-renovate.yaml@main
     permissions:
       contents: write
