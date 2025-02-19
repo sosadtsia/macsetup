@@ -3,7 +3,7 @@ version: '3'
 
 output: interleaved
 
-silent: True
+silent: true
 
 tasks:
   prereq:
