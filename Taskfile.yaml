@@ -3,29 +3,29 @@ version: '3'
 
 output: interleaved
 
-silent: True
+silent: true
 
 includes:
   hostSpecific:
     aliases: [include]
-    taskfile: ./Taskfile.{{OS}}.yaml
-    internal: True
+    taskfile: './Taskfile.{{OS}}.yaml'
+    internal: true
 
 vars:
-  AWS_PROFILE: default
-  AWS_REGION: us-east-1
+  AWS_PROFILE: 'default'
+  AWS_REGION: 'us-east-1'
 
 tasks:
   default:
     aliases: [usage]
     cmds:
-      - printf "OS - {{OS}}\n"
+      - printf 'OS - {{OS}}\n'
       - task --list-all
 
   brew-install:
-    desc: "Install brew packages"
+    desc: 'Install brew packages'
     cmds:
-      - echo "Installing brew packages..."
+      - echo 'Installing brew packages...'
       - if ! xcode-select -p > /dev/null; then xcode-select --install; fi
       - brew bundle
     env:
@@ -34,9 +34,9 @@ tasks:
       - test -f Brewfile.lock.json
 
   brew-uninstall:
-    desc: "Uninstall brew packages"
+    desc: 'Uninstall brew packages'
     cmds:
-      - echo "Uninstalling brew packages..."
+      - echo 'Uninstalling brew packages...'
       - brew bundle cleanup --force
     env:
       HOMEBREW_NO_ENV_HINTS: false
@@ -44,7 +44,7 @@ tasks:
       - test -f Brewfile.lock.json
 
   asdf-add-plugins:
-    desc: "Add asdf plugins"
+    desc: 'Add asdf plugins'
     cmds:
       - asdf plugin add aws-nuke
       - asdf plugin add aws-ssm-tools https://github.com/amrox/asdf-pyapp.git
@@ -73,7 +73,7 @@ tasks:
       - sh: which asdf
 
   asdf-remove-plugins:
-    desc: "Remove asdf plugins"
+    desc: 'Remove asdf plugins'
     cmds:
       - asdf plugin remove aws-nuke
       - asdf plugin remove aws-ssm-tools
@@ -102,60 +102,58 @@ tasks:
       - sh: which asdf
 
   asdf-install:
-    desc: "Install tools with asdf"
+    desc: 'Install tools with asdf'
     cmds:
-      - echo "Installing tools with asdf..."
+      - echo 'Installing tools with asdf...'
       - asdf install
 
   pip-install:
-    desc: "Install Python packages"
+    desc: 'Install Python packages'
     cmds:
-      - echo "Installing Python packages..."
-      - pip3 install -r requirements.txt
+      - echo 'Installing Python packages...'
+      - pip install -r requirements.txt
 
   pip-uninstall:
-    desc: "Uninstall Python packages"
+    desc: 'Uninstall Python packages'
     cmds:
-      - echo "Uninstalling Python packages..."
+      - echo 'Uninstalling Python packages...'
       - pip freeze | xargs pip uninstall -y
 
   install-vscode-extensions:
-    desc: "Install specified VS Code extensions"
+    desc: 'Install specified VS Code extensions'
     cmds:
       - |
         extensions=(
-          "artymaury.template-finder"
-          "davidanson.vscode-markdownlint"
-          "eamodio.gitlens"
-          "formulahendry.auto-rename-tag"
-          "github.copilot"
-          "github.copilot-chat"
-          "github.github-vscode-theme"
-          "github.vscode-github-actions"
-          "golang.go"
-          "hashicorp.terraform"
-          "iliazeus.vscode-ansi"
-          "keesschollaart.vscode-home-assistant"
-          "me-dutour-mathieu.vscode-github-actions"
-          "mechatroner.rainbow-csv"
-          "mhutchie.git-graph"
-          "moshfeu.compare-folders"
-          "ms-azuretools.vscode-docker"
-          "ms-kubernetes-tools.vscode-kubernetes-tools"
-          "ms-python.debugpy"
-          "ms-python.isort"
-          "ms-python.python"
-          "ms-vscode-remote.remote-containers"
-          "ms-vscode.makefile-tools"
-          "oderwat.indent-rainbow"
-          "redhat.vscode-yaml"
-          "ryu1kn.partial-diff"
-          "samuelcolvin.jinjahtml"
-          "task.vscode-task"
-          "visualstudioexptteam.intellicode-api-usage-examples"
-          "visualstudioexptteam.vscodeintellicode"
-          "vscode-icons-team.vscode-icons"
-          "wayou.vscode-todo-highlight"
+          'artymaury.template-finder'
+          'amazonwebservices.amazon-q-vscode'
+          'davidanson.vscode-markdownlint'
+          'eamodio.gitlens'
+          'formulahendry.auto-rename-tag'
+          'github.vscode-github-actions'
+          'golang.go'
+          'hashicorp.terraform'
+          'iliazeus.vscode-ansi'
+          'keesschollaart.vscode-home-assistant'
+          'me-dutour-mathieu.vscode-github-actions'
+          'mechatroner.rainbow-csv'
+          'mhutchie.git-graph'
+          'moshfeu.compare-folders'
+          'ms-azuretools.vscode-docker'
+          'ms-kubernetes-tools.vscode-kubernetes-tools'
+          'ms-python.debugpy'
+          'ms-python.isort'
+          'ms-python.python'
+          'ms-vscode-remote.remote-containers'
+          'ms-vscode.makefile-tools'
+          'oderwat.indent-rainbow'
+          'redhat.vscode-yaml'
+          'ryu1kn.partial-diff'
+          'samuelcolvin.jinjahtml'
+          'task.vscode-task'
+          'visualstudioexptteam.intellicode-api-usage-examples'
+          'visualstudioexptteam.vscodeintellicode'
+          'vscode-icons-team.vscode-icons'
+          'wayou.vscode-todo-highlight'
         )
         for extension in "${extensions[@]}"; do
           if ! code --list-extensions | grep -q "$extension"; then
@@ -169,19 +167,19 @@ tasks:
       - sh: which code
 
   uninstall-vscode:
-    desc: "Run uninstall-vscode.sh script"
+    desc: 'Run uninstall-vscode.sh script'
     cmds:
       - ./uninstall-vscode.sh
     preconditions:
       - sh: which code
 
   test:
-    desc: test:deployment
+    desc: 'test:deployment'
     cmds:
       - task: test:deployment
 
   deployment:
-    desc: "Install brew packages and tools with asdf"
+    desc: 'Install brew packages and tools with asdf'
     cmds:
       - task: brew-install
       - task: asdf-add-plugins
@@ -193,7 +191,7 @@ tasks:
       - sh: which asdf
 
   destroy:
-    desc: "Uninstall all tools and extensions"
+    desc: 'Uninstall all tools and extensions'
     cmds:
       - task: pip-uninstall
       - task: uninstall-vscode
@@ -204,14 +202,15 @@ tasks:
       - sh: which brew
       - sh: which code
 
-  test:deployment:
-    desc: test:deployment
+  lint:
     cmds:
-      - echo "No deployment tests"
-    # env:
-    #   KUBECONFIG: '{{.ROOT_DIR}}/kubeconfig'
+      - cmd: yamllint -f colored .
+
+  test:deployment:
+    desc: 'test:deployment'
+    cmds:
+      - echo 'No deployment tests'
 
   clean:
     cmds:
-      # - cmd: rm -f kubeconfig
       - rm -f Brewfile.lock.json
