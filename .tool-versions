@@ -7,7 +7,7 @@ k9s 0.32.4
 kind 0.20.0
 kube-linter 0.3.0
 kubebuilder 3.5.0
-kubectl 1.31.1
+kubectl 1.32.2
 kustomize 5.4.1
 kuttl 0.12.1
 operator-sdk 1.22.0
