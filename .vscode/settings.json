@@ -1,5 +1,8 @@
 {
     "files.associations": {
         "*.yaml": "home-assistant"
-    }
+    },
+    "amazonQ.telemetry": false,
+    "terraform.languageServer.enable": false,
+    "terraform.experimentalFeatures.validateOnSave": true
 }
