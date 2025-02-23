@@ -2,6 +2,7 @@ tap "hashicorp/tap"
 tap "homebrew/bundle"
 
 brew "asdf"
+brew "act"
 brew "bash"
 brew "bash-completion@2"
 brew "coreutils"
