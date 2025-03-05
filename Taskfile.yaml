@@ -185,7 +185,7 @@ tasks:
       - task: asdf-add-plugins
       - task: asdf-install
       - task: pip-install
-      - task: install-vscode-extensions
+      # - task: install-vscode-extensions
       - task: test
     preconditions:
       - sh: which asdf
