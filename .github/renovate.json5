@@ -1,0 +1,3 @@
+{
+    extends: ['github>sosadtsia/renovate-config']
+}
