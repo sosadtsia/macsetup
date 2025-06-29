@@ -8,7 +8,7 @@ kind 0.29.0
 kube-linter 0.3.0
 kubebuilder 3.15.1
 kubectl 1.33.2
-kustomize 5.6.0
+kustomize 5.7.0
 kuttl 0.12.1
 operator-sdk 1.22.0
 python 3.13.5
