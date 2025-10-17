@@ -1,6 +1,6 @@
 aws-nuke 3.24.0
 aws-ssm-tools 1.5.0
-awscli 2.31.11
+awscli 2.31.17
 eksctl 0.177.0
 jq 1.6
 k9s 0.32.4
