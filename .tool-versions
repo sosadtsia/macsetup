@@ -16,4 +16,4 @@ terraform 1.13.5
 tflint 0.55.1
 yarn 1.22.22
 yq 4.45.1
-helm 3.17.1
+helm 4.0.0
