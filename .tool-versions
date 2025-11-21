@@ -12,7 +12,7 @@ kustomize 5.8.0
 kuttl 0.12.1
 operator-sdk 1.22.0
 python 3.14.0
-terraform 1.13.5
+terraform 1.14.0
 tflint 0.55.1
 yarn 1.22.22
 yq 4.45.1
